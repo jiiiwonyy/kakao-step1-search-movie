@@ -2,7 +2,11 @@ const API_KEY = "730ef22a257d17fcc89a845cf56f1e80";
 const BASE_URL = "https://api.themoviedb.org/3";
 const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
 const movieList = document.querySelector(".movie-list");
-const titleElement = document.querySelector("#movie-list-container h2");
+const headerTitle = document.querySelector("header h1");
+const titleElement = document.querySelector(".title-text");
+const recommendTitleElement = document.querySelector(
+  "#movie-list-container h2"
+);
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 
@@ -10,6 +14,13 @@ const searchButton = document.getElementById("search-button");
 window.addEventListener("DOMContentLoaded", () => {
   fetchPopularMovies();
 });
+
+// 새로고침 함수
+function reloadPage() {
+  window.location.reload();
+}
+const reloadTargets = [headerTitle, titleElement];
+reloadTargets.forEach((el) => el.addEventListener("click", reloadPage));
 
 // 검색 버튼 클릭 이벤트
 searchButton.addEventListener("click", () => {
@@ -29,14 +40,14 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
-// 인기 영화 가져오기
+// 추천 영화 가져오기
 function fetchPopularMovies() {
-  titleElement.textContent = "추천 영화";
+  recommendTitleElement.textContent = "추천 영화";
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      const top8Movies = data.results;
-      renderMovies(top8Movies);
+      const topMovies = data.results;
+      renderMovies(topMovies);
     })
     .catch((error) => {
       console.error("에러 발생:", error);
@@ -46,7 +57,7 @@ function fetchPopularMovies() {
 function fetchSearchResults(query) {
   const formattedQuery = query.replace(/\s+/g, "").trim().toLowerCase();
 
-  titleElement.textContent = `"${query}" 검색 결과`;
+  recommendTitleElement.textContent = `"${query}" 검색 결과`;
   fetch(
     `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko-KR&query=${encodeURIComponent(
       formattedQuery

@@ -14,11 +14,22 @@ header {
   align-items: center;
 }
 
+header h1 {
+  cursor: pointer;
+}
+
 #title {
   background: linear-gradient(rgb(199, 182, 218), rgb(119, 99, 209));
   padding: 100px;
   text-align: center;
   align-items: center;
+}
+
+.title-text {
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .search-bar {
