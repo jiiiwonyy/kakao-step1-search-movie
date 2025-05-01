@@ -7,8 +7,15 @@ const titleElement = document.querySelector(".title-text");
 const recommendTitleElement = document.querySelector(
   "#movie-list-container h2"
 );
+
+// 검색바 요소
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
+
+// 모달 요소
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
+const closeButton = document.querySelector(".close");
 
 // 초기 로딩 시 추천 영화 (인기 영화) 표시
 window.addEventListener("DOMContentLoaded", () => {
@@ -76,6 +83,29 @@ function fetchSearchResults(query) {
     });
 }
 
+// 영화 모달
+function openModal(movie) {
+  modalBody.innerHTML = `
+      <h2>${movie.title} (${movie.original_title})</h2>
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${
+    movie.title
+  }" />
+      <p><strong>개봉일:</strong> ${movie.release_date || "N/A"}</p>
+      <p><strong>평점:</strong> ${movie.vote_average.toFixed(1)}점</p>
+      <p><strong>줄거리:</strong> ${movie.overview || "내용 없음"}</p>
+    `;
+  modal.classList.remove("hidden");
+}
+
+closeButton.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
 // 영화 카드 렌더링
 function renderMovies(movies) {
   movieList.innerHTML = ""; // 기존 목록 초기화
@@ -110,11 +140,15 @@ function renderMovies(movies) {
         : movie.overview
       : "내용 없음";
 
+    overview.textContent = `개요: ${truncatedOverview}`;
+
     // 영화 카드 스타일 적용
     const pElements = [releaseDate, rating, overview];
     pElements.forEach((el) => (el.className = "movie-info"));
 
-    overview.textContent = `개요: ${truncatedOverview}`;
+    card.addEventListener("click", () => {
+      openModal(movie);
+    });
 
     // 영화리스트 카드에 요소 추가
     card.appendChild(img);
