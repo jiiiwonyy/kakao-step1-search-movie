@@ -94,7 +94,7 @@ function renderMovies(movies) {
       : "https://via.placeholder.com/300x450?text=No+Image";
     img.alt = movie.title;
 
-    const title = document.createElement("h3");
+    const title = document.createElement("h2");
     title.textContent = movie.title;
 
     const releaseDate = document.createElement("p");
@@ -109,6 +109,10 @@ function renderMovies(movies) {
         ? movie.overview.substring(0, 50) + "..."
         : movie.overview
       : "내용 없음";
+
+    // 영화 카드 스타일 적용
+    const pElements = [releaseDate, rating, overview];
+    pElements.forEach((el) => (el.className = "movie-info"));
 
     overview.textContent = `개요: ${truncatedOverview}`;
 
