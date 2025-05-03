@@ -13,16 +13,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 initModalClose();
 
+function debounce(func, delay) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+searchInput.addEventListener(
+  "input",
+  debounce(async () => {
+    const query = searchInput.value.trim();
+    if (query) {
+      const results = await fetchSearchResults(query);
+      renderMovies(results, openModal);
+    }
+  }, 500)
+);
+
 searchButton.addEventListener("click", async () => {
-  const query = document.getElementById("search-input").value.trim();
+  const query = searchInput.value.trim();
   if (query) {
     const results = await fetchSearchResults(query);
     renderMovies(results, openModal);
   }
 });
 
-searchInput.addEventListener("keydown", async (event) => {
-  if (event.key === "Enter") {
+searchInput.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
     const query = searchInput.value.trim();
     if (query) {
       const results = await fetchSearchResults(query);
