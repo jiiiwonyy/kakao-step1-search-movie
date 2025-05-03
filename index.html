@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lights, Camera, Action!</title>
     <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/8fad52e12c.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header>
@@ -29,6 +33,14 @@
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <span class="close">&times;</span>
+        <div id="image-container">
+          <div class="bookmark-container">
+            <span class="bookmark-button">
+              <i class="fa-regular fa-bookmark"></i>
+            </span>
+          </div>
+          <img id="modal-image" src="" alt="Movie Poster" />
+        </div>
         <div id="modal-body"></div>
       </div>
     </div>

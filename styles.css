@@ -134,10 +134,46 @@ header h1 {
   width: 100%;
   height: auto;
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 24px 0;
 }
 .hidden {
   display: none;
+}
+
+#image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bookmark-container {
+  position: absolute;
+  right: 10px;
+  bottom: 40px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.bookmark-button {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.fa-bookmark {
+  color: white;
+}
+
+#modal-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }
 
 .modal-content {
@@ -152,7 +188,7 @@ header h1 {
 
 .close {
   position: absolute;
-  top: 12px;
+  top: 0px;
   right: 16px;
   font-size: 32px;
   cursor: pointer;
