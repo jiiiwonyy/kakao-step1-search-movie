@@ -23,9 +23,19 @@ export function renderMovies(movies, onClick) {
           movie.overview?.substring(0, 50) ?? "내용 없음"
         }...</p>
       `;
-    card.addEventListener("click", () => onClick(movie));
     movieList.appendChild(card);
   });
+
+  movieList.onclick = (e) => {
+    const card = e.target.closest(".movie-card");
+    if (card) {
+      const movieTitle = card.querySelector("h2").innerText;
+      const movie = movies.find((m) => m.title === movieTitle);
+      if (movie) {
+        onClick(movie);
+      }
+    }
+  };
 }
 
 export function openModal(movie) {

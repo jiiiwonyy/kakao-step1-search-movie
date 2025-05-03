@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 initModalClose();
 
-document.getElementById("search-button").addEventListener("click", async () => {
+searchButton.addEventListener("click", async () => {
   const query = document.getElementById("search-input").value.trim();
   if (query) {
     const results = await fetchSearchResults(query);
